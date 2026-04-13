@@ -1,111 +1,55 @@
 # 🎧 Model Card: Music Recommender Simulation
 
-## 1. Model Name  
+## 1. Model Name
 
-Give your model a short, descriptive name.  
-Example: **VibeFinder 1.0**  
-
----
-
-## 2. Intended Use  
-
-Describe what your recommender is designed to do and who it is for. 
-
-Prompts:  
-
-- What kind of recommendations does it generate  
-- What assumptions does it make about the user  
-- Is this for real users or classroom exploration  
+**SoundMatch 1.0**
 
 ---
 
-## 3. How the Model Works  
+## 2. Intended Use
 
-Explain your scoring approach in simple language.  
-
-Prompts:  
-
-- What features of each song are used (genre, energy, mood, etc.)  
-- What user preferences are considered  
-- How does the model turn those into a score  
-- What changes did you make from the starter logic  
-
-Avoid code here. Pretend you are explaining the idea to a friend who does not program.
+SoundMatch tries to predict which songs a user will enjoy based on their preferred genre, mood, and energy level. It does this by scoring every song in the catalog and returning the ones that are the closest match. It is built for classroom exploration only and is not meant for real users or a real product.
 
 ---
 
-## 4. Data  
+## 3. How the Model Works
 
-Describe the dataset the model uses.  
-
-Prompts:  
-
-- How many songs are in the catalog  
-- What genres or moods are represented  
-- Did you add or remove data  
-- Are there parts of musical taste missing in the dataset  
+The system looks at each song in the catalog and gives it a score based on how well it matches the user's preferences. It awards bonus points for an exact genre match and an exact mood match. It also checks how close the song's energy, emotional tone (valence), and tempo are to what the user wants the closer, the more points. Songs are then ranked from highest to lowest score, and the top results are shown.
 
 ---
 
-## 5. Strengths  
+## 4. Data
 
-Where does your system seem to work well  
-
-Prompts:  
-
-- User types for which it gives reasonable results  
-- Any patterns you think your scoring captures correctly  
-- Cases where the recommendations matched your intuition  
+The catalog has 18 songs. Each song has a genre, mood, energy level, tempo, valence, danceability, and acousticness. Genres include pop, lofi, rock, jazz, metal, classical, blues, folk, reggae, and more. Most genres only appear once or twice, which limits how well the system works for niche listeners. The dataset does not include lyrics, release year, or artist popularity.
 
 ---
 
-## 6. Limitations and Bias 
+## 5. Strengths
 
-Where the system struggles or behaves unfairly. 
-
-Prompts:  
-
-- Features it does not consider  
-- Genres or moods that are underrepresented  
-- Cases where the system overfits to one preference  
-- Ways the scoring might unintentionally favor some users  
+The system works best for users whose preferences match common genres in the catalog like pop or lofi, since those have more songs to compare. When genre, mood, and energy all line up, the top result feels very accurate. Every recommendation comes with a reason, so it is easy to understand why a song was picked.
 
 ---
 
-## 7. Evaluation  
+## 6. Limitations and Bias
 
-How you checked whether the recommender behaved as expected. 
-
-Prompts:  
-
-- Which user profiles you tested  
-- What you looked for in the recommendations  
-- What surprised you  
-- Any simple tests or comparisons you ran  
-
-No need for numeric metrics unless you created some.
+The biggest weakness is that most genres in the catalog only have one song. This means a metal or jazz fan will almost never get a great genre match, while a pop or lofi fan gets multiple options. The system also ignores the `acousticness` and `danceability` fields entirely. Finally, if a user types a mood like `"mellow"` instead of `"chill"`, the system scores it as zero, it does not understand that the two words mean the same thing.
 
 ---
 
-## 8. Future Work  
+## 7. Evaluation
 
-Ideas for how you would improve the model next.  
-
-Prompts:  
-
-- Additional features or preferences  
-- Better ways to explain recommendations  
-- Improving diversity among the top results  
-- Handling more complex user tastes  
+Five different user profiles were tested by running the recommender and checking if the results made sense. For profiles like "Chill Lofi" and "High-Energy Pop," the top songs matched the genre, mood, and energy level. The most surprising result was when a "country" user was tested and the system returned indie pop songs, because there were no country songs in the catalog. A second test was run where the genre weight was cut in half and the energy weight was doubled, which changed the scores but not the top picks.
 
 ---
 
-## 9. Personal Reflection  
+## 8. Future Work
 
-A few sentences about your experience.  
+- Add more songs per genre so niche listeners get better results.
+- Use fuzzy mood matching so words like "mellow" and "chill" are treated as the same.
+- Add a diversity rule so the top 5 results are not all from the same genre.
 
-Prompts:  
+---
 
-- What you learned about recommender systems  
-- Something unexpected or interesting you discovered  
-- How this changed the way you think about music recommendation apps  
+## 9. Personal Reflection
+
+I learned that a recommender system is just a set of rules that compare numbers. The hardest part was deciding how much each feature should matter. I also learned that the data matters as much as the algorithm. If the catalog is too small or unbalanced, the results will always be limited no matter how good the scoring logic is.

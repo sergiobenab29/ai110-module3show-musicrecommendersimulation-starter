@@ -17,12 +17,3 @@ id,title,artist,genre,mood,energy,tempo_bpm,valence,danceability,acousticness
 16,Island Vibes,Reggae Kings,reggae,uplifting,0.62,96,0.80,0.75,0.68
 17,Autumn Leaves,Folk Tales,folk,calm,0.45,88,0.60,0.40,0.88
 18,Broken Heart,Blues Master,blues,sad,0.55,95,0.35,0.55,0.82
-
-
-user_profile = {
-    "preferred_genre": "indie pop",
-    "preferred_mood": "happy",
-    "target_energy": 0.75,
-    "target_valence": 0.80,
-    "target_tempo_bpm": 120
-}
