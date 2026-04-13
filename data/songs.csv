@@ -9,3 +9,20 @@ id,title,artist,genre,mood,energy,tempo_bpm,valence,danceability,acousticness
 8,Night Drive Loop,Neon Echo,synthwave,moody,0.75,110,0.49,0.73,0.22
 9,Focus Flow,LoRoom,lofi,focused,0.40,80,0.59,0.60,0.78
 10,Rooftop Lights,Indigo Parade,indie pop,happy,0.76,124,0.81,0.82,0.35
+11,Neon Dreams,Synth Echo,electronic,melancholic,0.65,110,0.40,0.82,0.05
+12,City Pulse,Urban Flow,hip-hop,energetic,0.88,92,0.72,0.90,0.10
+13,Midnight Whispers,Soul Groove,soul,melancholic,0.50,85,0.45,0.65,0.75
+14,Thunder Rage,Iron Storm,metal,angry,0.95,160,0.30,0.60,0.02
+15,Piano Serenity,Symphony Hall,classical,peaceful,0.35,72,0.70,0.20,0.95
+16,Island Vibes,Reggae Kings,reggae,uplifting,0.62,96,0.80,0.75,0.68
+17,Autumn Leaves,Folk Tales,folk,calm,0.45,88,0.60,0.40,0.88
+18,Broken Heart,Blues Master,blues,sad,0.55,95,0.35,0.55,0.82
+
+
+user_profile = {
+    "preferred_genre": "indie pop",
+    "preferred_mood": "happy",
+    "target_energy": 0.75,
+    "target_valence": 0.80,
+    "target_tempo_bpm": 120
+}

@@ -18,16 +18,53 @@ Replace this paragraph with your own summary of what your version does.
 ## How The System Works
 
 Explain your design in plain language.
+Big platforms like Spotify combine collaborative filtering, which is based on what users like, and content-based filtering which takes attributes from the song to make recommendations. 
+This recommender will prioritize content-based filtering. It analyzes features like genre, mood, energy, and tempo, then scores new songs by how closely they match the user's taste. The system ranks songs by their computed scores to surface the best matches first.
 
-Some prompts to answer:
+### Song Features
+- `id`
+- `title`
+- `artist`
+- `genre`
+- `mood`
+- `energy`
+- `tempo_bpm`
+- `valence`
+- `danceability`
+- `acousticness`
 
-- What features does each `Song` use in your system
-  - For example: genre, mood, energy, tempo
-- What information does your `UserProfile` store
-- How does your `Recommender` compute a score for each song
-- How do you choose which songs to recommend
+### UserProfile Features
+- `preferred_genre`
+- `preferred_mood`
+- `target_energy`
+- `target_valence`
+- `target_tempo_bpm`
 
-You can include a simple diagram or bullet list if helpful.
+### Scoring & Ranking
+
+Every song in the catalog is evaluated against the user profile and given a score. Songs are sorted by score (highest first) and the top K are returned as recommendations.
+
+#### Algorithm Recipe
+
+| Signal | Points | How It's Calculated |
+|---|---|---|
+| Genre match | **+2.0** | Exact match between `song.genre` and `preferred_genre` |
+| Mood match | **+1.0** | Exact match between `song.mood` and `preferred_mood` |
+| Energy proximity | **up to +1.5** | `1.5 × (1 − |song.energy − target_energy|)` |
+| Valence proximity | **up to +1.0** | `1.0 × (1 − |song.valence − target_valence|)` |
+| Tempo proximity | **up to +0.5** | `0.5 × (1 − |song.tempo_bpm − target_tempo_bpm| / 100)` |
+
+**Maximum possible score: 6.0**
+
+#### Terminal Output
+
+![Terminal output showing top recommendations with scores and reasons](terminal_recommender.png)
+
+#### Potential Biases
+
+- **Genre over-dominance:** Because genre is worth +2.0, the system might skip a song that perfectly matches the user's mood and energy just because it belongs to a slightly different genre.
+- **Mood labels are rigid:** "Chill" and "relaxed" feel similar, but the system scores them as completely different — a zero-point mood match.
+- **No variety:** The system always picks the closest matches. If several songs share the same genre and mood, the top results may feel repetitive.
 
 ---
 
